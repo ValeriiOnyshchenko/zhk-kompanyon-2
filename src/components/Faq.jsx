@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ADMIN, BACKUP, tgLink, TEAM } from '../config.js'
 import Icon from './Icon.jsx'
+import AcScheme from './AcScheme.jsx'
 
 const barrierContact = TEAM.find((p) => p.tg === 'godmode_0n')
 
@@ -49,6 +50,21 @@ const ITEMS = [
     ),
   },
   {
+    q: 'Де можна встановити кондиціонер?',
+    a: (
+      <>
+        <p>
+          Зовнішній блок встановлюється в корзину на визначеному місці фасаду: на простінку біля вікна, на одній
+          вертикалі для всіх поверхів. Так фасад лишається охайним, а блоки не заважають сусідам.
+        </p>
+        <AcScheme />
+        <p>
+          Це проєкт схеми. Правила монтажу й остаточну схему затвердять співвласники на установчих зборах ОСББ.
+        </p>
+      </>
+    ),
+  },
+  {
     q: 'Що буде з моїм внеском після створення ОСББ?',
     a: (
       <>
@@ -76,7 +92,7 @@ export default function Faq() {
               </button>
               <div className="faq__a">
                 <div>
-                  <p>{it.a}</p>
+                  <div className="faq__body">{it.a}</div>
                 </div>
               </div>
             </div>
