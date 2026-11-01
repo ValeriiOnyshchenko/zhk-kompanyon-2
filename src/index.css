@@ -456,13 +456,48 @@ p { margin: 0; }
 /* ---------- footer ---------- */
 .footer { border-top: 1px solid var(--line); padding: 24px 0 32px; font-size: 13px; color: var(--text-3); text-align: center; }
 
+/* building tabs — phones only */
+.btabs { display: none; gap: 6px; margin-top: 16px; }
+.btabs__tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 8px 6px;
+  border-radius: 12px; border: 1px solid var(--line-2); background: transparent; color: var(--text-2); font-size: 12px;
+}
+.btabs__tab b { font-size: 15px; color: var(--text); }
+.btabs__tab--on { background: var(--text); border-color: var(--text); color: var(--bg); }
+.btabs__tab--on b { color: var(--bg); }
+
 @media (max-width: 640px) {
+  .btabs { display: flex; }
+  .scene { margin-top: 12px; overflow: hidden; }
+  .skyline { width: 100%; min-width: 0; padding: 36px 8px 0; gap: 0; }
+  .building:not(.building--active), .gate, .yard { display: none; }
+  .building__label { display: none; }
+  .floor__num, .building--1 .section-col:first-child .floor__num { display: none; }
+  .updated { width: 100%; justify-content: center; }
+  .complex__tools { gap: 10px; }
+  .table th:nth-child(2), .table td:nth-child(2) { display: none; }
+  .table { font-size: 13px; }
+  .table td, .table th { padding-left: 4px; padding-right: 4px; }
+  .card { padding: 18px 16px; }
+  .backup { padding: 18px 16px; gap: 16px; }
+  .faq__q { padding: 14px 16px; font-size: 15px; }
+  .faq__body { padding: 0 16px 16px; }
+  .ac-fig { max-width: 100%; overflow-x: auto; scrollbar-width: thin; }
+  .ac-fig svg { max-width: none; }
+  .hero__place { font-size: 13px; }
+  .floor--ground { gap: 3px; }
+  .win--shop { min-width: 7px; }
+  .door { flex-basis: 20px; margin: 0 2px; }
   .section { padding: 56px 0; }
   .hero { padding: 40px 0 44px; }
   .finder { max-width: none; }
   .hero__actions .btn { width: 100%; }
-  :root { --win-w: 16px; --win-h: 21px; --win-gap: 4px; --wall-pad: 7px; }
+  :root { --win-w: 17px; --win-h: 22px; --win-gap: 3px; --wall-pad: 6px; }
   .skyline { padding-top: 40px; }
+}
+
+@media (max-width: 360px) {
+  :root { --win-w: 14px; --win-h: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

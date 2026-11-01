@@ -269,6 +269,12 @@ export default function Complex() {
   const [hover, setHover] = useState(null) // {u, rect}
   const [pinned, setPinned] = useState(null)
   const [addr, setAddr] = useState('31')
+  const [active, setActive] = useState(1) // building shown on phones
+  const pick = (b) => {
+    setActive(b)
+    setAddr(ADDR[b])
+    setPinned(null)
+  }
   const [query, setQuery] = useState('')
   const [err, setErr] = useState('')
   const sceneRef = useRef(null)
@@ -319,10 +325,14 @@ export default function Complex() {
       return
     }
     setErr('')
-    const el = document.querySelector(`[data-id="${u.id}"]`)
-    if (!el) return
-    el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
-    setTimeout(() => setPinned({ u, rect: el.getBoundingClientRect() }), 450)
+    setActive(u.b)
+    // wait for the building to become visible on phones, then scroll to the window
+    setTimeout(() => {
+      const el = document.querySelector(`[data-id="${u.id}"]`)
+      if (!el) return
+      el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+      setTimeout(() => setPinned({ u, rect: el.getBoundingClientRect() }), 450)
+    }, 30)
   }
 
   return (
@@ -339,7 +349,11 @@ export default function Complex() {
         <div className="complex__tools">
           <form className="finder" onSubmit={search}>
             <Icon name="search" size={20} />
-            <select value={addr} onChange={(e) => setAddr(e.target.value)} aria-label="Будинок">
+            <select
+              value={addr}
+              onChange={(e) => pick(Number(Object.keys(ADDR).find((k) => ADDR[k] === e.target.value)))}
+              aria-label="Будинок"
+            >
               {Object.values(ADDR).map((a) => (
                 <option key={a} value={a}>
                   буд. {a}
@@ -366,11 +380,33 @@ export default function Complex() {
         {err && <p className="finder__err">{err}</p>}
       </div>
 
+      <div className="container">
+        <div className="btabs" role="tablist" aria-label="Будинок">
+          {[1, 2, 3].map((b) => {
+            const st = summarize(units.filter((u) => u.b === b))
+            return (
+              <button
+                key={b}
+                role="tab"
+                aria-selected={active === b}
+                className={`btabs__tab ${active === b ? 'btabs__tab--on' : ''}`}
+                onClick={() => pick(b)}
+              >
+                <b>Буд. {ADDR[b]}</b>
+                <span>
+                  {st.full} з {st.count}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
       <div className="scene" ref={sceneRef}>
         <div className="skyline">
           <Gate side="left" />
           {[1, 2, 3].map((b) => (
-            <div key={b} className={`building building--${b}`}>
+            <div key={b} className={`building building--${b} ${active === b ? 'building--active' : ''}`}>
               <div className="building__label">Будинок {ADDR[b]}</div>
               <div className="building__body">
                 {LAYOUT.filter((l) => l.b === b).map((l) => (
