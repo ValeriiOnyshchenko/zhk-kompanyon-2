@@ -169,12 +169,13 @@ p { margin: 0; }
   background: #0d1428; box-shadow: inset 0 3px 4px rgba(0, 0, 0, .5);
 }
 .balcony::after {
-  content: ''; position: absolute; z-index: 2; left: -1px; right: -1px; bottom: 0; height: 48%;
-  background: var(--wall); border-top: 2px solid #34436a; border-radius: 1px;
+  content: ''; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 46%;
+  border-top: 2px solid #4a5a82;
+  background: repeating-linear-gradient(90deg, #3d4c72 0 1.5px, transparent 1.5px 5px);
 }
-.thuja { position: absolute; z-index: 3; left: 3px; bottom: calc(48% - 2px); width: 8px; height: 13px; background: #2d7046; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.pot { position: absolute; z-index: 3; right: 4px; bottom: calc(48% + 2px); width: 6px; height: 5px; background: #9a5530; border-radius: 0 0 2px 2px; }
-.pot::before { content: ''; position: absolute; left: -2px; bottom: 4px; width: 10px; height: 6px; border-radius: 50%; background: #3f8c4f; }
+.thuja { position: absolute; z-index: 1; left: 3px; bottom: 1px; width: 8px; height: 19px; background: #2d7046; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.pot { position: absolute; z-index: 1; right: 4px; bottom: 1px; width: 6px; height: 6px; background: #9a5530; border-radius: 0 0 2px 2px; }
+.pot::before { content: ''; position: absolute; left: -2px; bottom: 5px; width: 10px; height: 8px; border-radius: 50%; background: #3f8c4f; }
 .pot--2 { right: 13px; }
 
 /* roofs */
